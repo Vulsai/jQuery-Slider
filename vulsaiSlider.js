@@ -1,337 +1,116 @@
 ;(function ( $, window, document, undefined ) {
 
-    var pluginName = 'vulsaiSlider',
-        defaults = {
-            transition: "fade",
-			thumb_list_id: "#thumbs",
-			prev: "#prev",
-			next: "#next",
-			nav_opacity: 0.3,
-			fade_opacity: 0.2			
-        };
+  var defaults = {
+    transition: 'fade'
+    , thumb_list_id: '#thumbs'
+    , prev: '#prev'
+    , next: '#next'
+    , nav_opacity: .3
+    , fade_opacity: .2
+    , infinite: true
+    , automatic: true
+    , interval: 3000
+  };
 
-    function vulsaiSlider( element, options ) {
-        this.element = element;
-		this.width_amount = $(element).parent().width();
+  function vulsaiSlider(element, options){
+    this.options = $.extend({}, defaults, options);
 
-        this.current_slide = 0;
-		this.slide_num = $(this.element).children('li').length;
+    this.el = $(element);
+    this.slides = this.el.children('li').length;
+    this.full_width = this.el.parent().width();
+    this.current_slide = 0;
 
-        this.options = $.extend( {}, defaults, options) ;
-        
-        this._defaults = defaults;
-        this._name = pluginName;
+    this.init();
+  };
+  
+  vulsaiSlider.prototype.init = function(){
+    this.activeThumb();
+    this.preventArrows();
+    this.startTransitions();
+    var self = this;
+    if(this.options.infinite)
+      setInterval(function(){
+        $(self.options.next).click();
+      }, self.options.interval);
+  };
 
-        this.init();
+  vulsaiSlider.prototype.activeThumb = function() {
+    $(this.options.thumb_list_id).find('li').eq(this.current_slide).addClass('currentNumber').siblings().removeClass('currentNumber');  
+  };
 
-    }
+  vulsaiSlider.prototype.preventArrows = function(){
+    if(!this.options.infinite && this.current_slide == 0)
+      $(this.options.prev).fadeOut();
+    else if(!this.options.infinite && this.current_slide == this.slides - 1)
+      $(this.options.next).fadeOut();
 
-    vulsaiSlider.prototype.init = function () {
-		
-		this.initThumbs();
+    if(!this.options.infinite && this.current_slide == 1)
+      $(this.options.prev).fadeIn();
+    else if(!this.options.infinite && this.current_slide == this.slides - 2)
+      $(this.options.next).fadeIn();
+  };
 
-		switch ( this.options.transition ) {
-			case "slide" :
-				this.initSlide();
-				break;
-		   
-		 	case "fade" :
-				this.initFade();
-				break;
-			
-			default :
-				break;
-		}             
-		
-    };
+  vulsaiSlider.prototype.startTransitions = function(){
+    this.transitions();
+  };
 
-	vulsaiSlider.prototype.initThumbs = function () {
-	                
-		var self = this;
-	
-		$(this.options.thumb_list_id).find('ul li:first-child').addClass('currentNumber');
-		$(this.options.prev).css('opacity',this.options.nav_opacity);
-		   
-
-		$(this.options.thumb_list_id).find('li').click(function(e){
-		   			
-		   self.changeThumb(this);
-
-			e.preventDefault();
-		 
-		});
-		
-	};
-	
-	vulsaiSlider.prototype.changeThumb = function (elem) {
-
-		$(elem).siblings().removeClass();
-		$(elem).addClass('currentNumber');
-	    
-		this.transition( $(elem).index() );
-		
-	};  	
-    
-	vulsaiSlider.prototype.initFade = function () {                   
-		
-		var self = this;
-        
-		$(this.element).css('position','relative');
-		
-		
-		// need to fix this
-		$(this.element).children('li').css({'position':'absolute','z-index':3,'top':0,'left':0});
-		$(this.element).children('li:first-child').css({'z-index':4});
-
-		$(this.options.prev).click(function(e){
-			
-			if (self.current_slide > 0) {
-
-				self.current_slide--;
-                
-                $(self.options.thumb_list_id).find('li').eq(self.current_slide).addClass('currentNumber').siblings().removeClass();
-
-				$(self.element).animate({'opacity': self.options.fade_opacity}, 400, function(){
-					$(this).children('li').eq(self.current_slide).css('z-index',4).siblings().css('z-index',3);
-					$(self.element).animate({'opacity':1},400);				   					
-				});
-				
-			}
-
-			if (self.current_slide === self.slide_num - 2) {
-
-				$(self.options.next).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				
-			}
-			
-			if (self.current_slide === 0) {
-
-				$(this).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-						    				
-			}
-		
-			e.preventDefault();
-			
-		});
-             
-
-		$(this.options.next).click(function(e){
-			
-
-		   if (self.current_slide < self.slide_num - 1) {
-                
-			   self.current_slide++;
-
-               $(self.options.thumb_list_id).find('li').eq(self.current_slide).addClass('currentNumber').siblings().removeClass();
-
-				
-			   $(self.element).animate({'opacity': self.options.fade_opacity }, 400, function(){
-				   $(this).children('li').eq(self.current_slide).css('z-index',4).siblings().css('z-index',3);
-			       $(self.element).animate({'opacity':1},400);				   					
-			   });
-			
-		   }
-		
-			if (self.current_slide === 1) {
-
-				$(self.options.prev).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				
-			}
-
-		   if (self.current_slide === self.slide_num - 1) {
-            
-				$(this).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-
-		   }
-		    
-			
-		
-			e.preventDefault();
-			
-		});
-		
-		this.transition = this.fadeTransition;
-		
-	};
-
-	vulsaiSlider.prototype.initSlide = function () {
-
-		var self = this;
-        
-		$(this.element).css('position','relative');
-		
-		
-		$(this.options.prev).click(function(e){
-			
-			if (self.current_slide > 0) {
-
-				self.current_slide--;
-                
-                $(self.options.thumb_list_id).find('li').eq(self.current_slide).addClass('currentNumber').siblings().removeClass();
-
-			    $(self.element).animate({left: '+=' + self.width_amount + ''}, 800);
-				
-			}
-
-			if (self.current_slide === self.slide_num - 2) {
-
-				$(self.options.next).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				
-			}
-			
-			if (self.current_slide === 0) {
-
-				$(this).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-						    				
-			}
-		
-			e.preventDefault();
-			
-		});
-             
-
-		$(this.options.next).click(function(e){
-			
-
-		   if (self.current_slide < self.slide_num - 1) {
-                
-			   self.current_slide++;
-
-               $(self.options.thumb_list_id).find('li').eq(self.current_slide).addClass('currentNumber').siblings().removeClass();
-				
-			   $(self.element).animate({left: '-=' + self.width_amount + ''}, 800);			
-		   }
-		
-			if (self.current_slide === 1) {
-
-				$(self.options.prev).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				
-			}
-
-		   if (self.current_slide === self.slide_num - 1) {
-            
-				$(this).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-
-		   }
-		    
-			
-		
-			e.preventDefault();
-			
-		});
-
-		this.transition = this.slideTransition;
-		
-	};
-
-	vulsaiSlider.prototype.fadeTransition = function ( to ) {
-		var self = this;
-		
-		$(self.element).animate({'opacity': self.options.fade_opacity}, 400, function(){
-			$(this).children('li').eq(to).css('z-index',4).siblings().css('z-index',3);
-			$(self.element).animate({'opacity':1},400);				   					
-		});                                                             
-		
-		if (to === 0) {
-			$(self.options.prev).animate({opacity: self.options.nav_opacity}, 500, function() {
-			    $(this).css('display', 'block');
-			});
-			$(self.options.next).animate({opacity: 1}, 500, function() {
-			    $(this).css('display', 'block');
-			});			
-			
-		} else if(to === self.slide_num - 1 ) {
-			$(self.options.next).animate({opacity: self.options.nav_opacity}, 500, function() {
-			    $(this).css('display', 'block');
-			});			
-			$(self.options.prev).animate({opacity: 1}, 500, function() {
-			    $(this).css('display', 'block');
-			});
-		}
-		
-		else {
-			$(self.options.prev).animate({opacity: 1}, 500, function() {
-			    $(this).css('display', 'block');
-			});
-			$(self.options.next).animate({opacity: 1}, 500, function() {
-			    $(this).css('display', 'block');
-			});			
-			
-		}
-		
-		self.current_slide = to;
-	};
-	
-	vulsaiSlider.prototype.slideTransition = function ( to ) {
-			var self = this;
-
-			if(to > self.current_slide) {
-		    	$(self.element).animate({left: '-=' + (to - self.current_slide)*self.width_amount + ''}, 800);				
-			} else {
-		    	$(self.element).animate({left: '+=' + (self.current_slide - to)*self.width_amount + ''}, 800);								
-			}                                                                      
-		   
-                                                             
-
-			if (to === 0) {
-				$(self.options.prev).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				$(self.options.next).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});			
-
-			} else if(to === self.slide_num - 1 ) {
-				$(self.options.next).animate({opacity: self.options.nav_opacity}, 500, function() {
-				    $(this).css('display', 'block');
-				});			
-				$(self.options.prev).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-			}
-
-			else {
-				$(self.options.prev).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});
-				$(self.options.next).animate({opacity: 1}, 500, function() {
-				    $(this).css('display', 'block');
-				});			
-
-			}
-
-			self.current_slide = to;
-
-	};
-    
-	
-    vulsaiSlider.prototype.transition = function () {
-	};
+  vulsaiSlider.prototype.transitions = function(){
+    var self = this;
 
 
-    $.fn[pluginName] = function ( options ) {
-        return this.each(function () {
-            if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName,
-                new vulsaiSlider( this, options ));
-            }
-        });
-    }
+    this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
 
-})( jQuery, window, document );
+    if(this.options.transition == 'slide')
+      this.el.css('position','absolute');
+    else if(this.options.transition == 'fade')
+      this.el.children('li').css({'position':'absolute','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
+
+
+    $(this.options.prev).click(function(e){
+      e.preventDefault();
+      if(self.current_slide == 0)
+        self.current_slide = self.slides - 1;
+      else
+        self.current_slide = self.current_slide - 1;
+
+      self.activeThumb();
+      self.preventArrows();
+      self.transition();
+    });
+
+     $(self.options.next).click(function(e){
+      e.preventDefault();
+      if(self.current_slide == self.slides - 1)
+        self.current_slide = 0;
+      else
+        self.current_slide = self.current_slide + 1;
+
+      self.activeThumb();
+      self.preventArrows();
+      self.transition();   
+    });
+ };
+
+  vulsaiSlider.prototype.slide = function(){
+    this.el.animate({left: '-' + this.current_slide * this.full_width}, 800);
+  };
+
+  vulsaiSlider.prototype.fade = function(){
+    var self = this;
+    this.el.animate({'opacity': self.options.fade_opacity}, 400, 
+      function(){
+        $(this).children('li').eq(self.current_slide).css('z-index',4).siblings().css('z-index',3);
+        self.el.animate({'opacity':1},400);
+      }
+    );	 
+  };
+
+  $.fn.vulsaiSlider = function ( options ) {
+    return this.each(function () {
+      if(!$.data(this, 'plugin_vulsaiSlider')) {
+        $.data(this, 'plugin_vulsaiSlider', new vulsaiSlider(this, options));
+      }
+    });
+  };
+
+})(jQuery, window, document);
