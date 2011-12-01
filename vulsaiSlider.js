@@ -9,12 +9,11 @@
     , fade_opacity: .2
     , infinite: true
     , automatic: true
-    , interval: 3000
+    , interval: 6000
   };
 
   function vulsaiSlider(element, options){
     this.options = $.extend({}, defaults, options);
-
     this.el = $(element);
     this.slides = this.el.children('li').length;
     this.full_width = this.el.parent().width();
@@ -28,14 +27,17 @@
     this.preventArrows();
     this.startTransitions();
     var self = this;
-    if(this.options.infinite)
-      setInterval(function(){
-        $(self.options.next).click();
-      }, self.options.interval);
+    if(self.options.automatic == true)
+      self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+ };
+
+  vulsaiSlider.prototype.interval_func = function(){
+    $(this.options.next).click();
   };
 
   vulsaiSlider.prototype.activeThumb = function() {
     $(this.options.thumb_list_id).find('li').eq(this.current_slide).addClass('currentNumber').siblings().removeClass('currentNumber');  
+    var self = this;
   };
 
   vulsaiSlider.prototype.preventArrows = function(){
@@ -51,15 +53,28 @@
   };
 
   vulsaiSlider.prototype.startTransitions = function(){
+    var self = this;
+    $(this.options.thumb_list_id).find('li').click(function(e){
+      e.preventDefault();
+      
+      if(self.options.automatic == true && self.interval_id){
+        clearInterval(self.interval_id);
+        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+      }
+
+      self.current_slide = $(this).index();
+      self.activeThumb();
+      self.preventArrows();
+      self.transition();
+    });
+
     this.transitions();
   };
 
   vulsaiSlider.prototype.transitions = function(){
     var self = this;
 
-
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
-
     if(this.options.transition == 'slide')
       this.el.css('position','absolute');
     else if(this.options.transition == 'fade')
@@ -73,6 +88,11 @@
       else
         self.current_slide = self.current_slide - 1;
 
+      if(self.options.automatic == true && self.interval_id){
+        clearInterval(self.interval_id);
+        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+      }
+
       self.activeThumb();
       self.preventArrows();
       self.transition();
@@ -85,10 +105,16 @@
       else
         self.current_slide = self.current_slide + 1;
 
+      if(self.options.automatic == true && self.interval_id){
+        clearInterval(self.interval_id);
+        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+      }
+
       self.activeThumb();
       self.preventArrows();
       self.transition();   
-    });
+
+   });
  };
 
   vulsaiSlider.prototype.slide = function(){
