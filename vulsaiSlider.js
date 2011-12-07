@@ -86,11 +86,9 @@
     var self = this;
 
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
-    if(this.options.transition == 'slide')
-      this.el.css('position','absolute');
-    else if(this.options.transition == 'fade')
-      this.el.children('li').css({'position':'absolute','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
-
+    this.el.css('position','relative');
+    if(this.options.transition == 'fade')
+      this.el.children('li').css({'position':'relative','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
 
     $(this.options.prev).live('click',function(e){
       e.preventDefault();
