@@ -65,7 +65,7 @@
 
   vulsaiSlider.prototype.startTransitions = function(){
     var self = this;
-    $(this.options.thumb_list_id).find('li').live('click',function(e){
+    $(this.options.thumb_list_id).find('li').click(function(e){
       e.preventDefault();
       
       if(self.options.automatic == true && self.interval_id){
@@ -90,7 +90,7 @@
     if(this.options.transition == 'fade')
       this.el.children('li').css({'position':'relative','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
 
-    $(this.options.prev).live('click',function(e){
+    $(this.options.prev).click(function(e){
       e.preventDefault();
       if(self.current_slide == 0)
         self.current_slide = self.slides - 1;
@@ -107,7 +107,7 @@
       self.transition();
     });
 
-     $(self.options.next).live('click',function(e){
+     $(self.options.next).click(function(e){
       e.preventDefault();
       if(self.current_slide == self.slides - 1)
         self.current_slide = 0;
