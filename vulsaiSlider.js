@@ -7,8 +7,8 @@
     , next: '#next'
     , nav_opacity: .3
     , fade_opacity: .2
-    , infinite: true
-    , automatic: true
+    , infinite: false
+    , automatic: false
     , interval: 6000
   };
 
@@ -41,20 +41,31 @@
   };
 
   vulsaiSlider.prototype.preventArrows = function(){
-    if(!this.options.infinite && this.current_slide == 0)
+    if(!this.options.infinite && this.current_slide == 0){
       $(this.options.prev).fadeOut();
-    else if(!this.options.infinite && this.current_slide == this.slides - 1)
+      $(this.options.next).show();
+    }
+    else if(!this.options.infinite && this.current_slide == this.slides - 1){
       $(this.options.next).fadeOut();
-
-    if(!this.options.infinite && this.current_slide == 1)
+      $(this.options.prev).show();
+    }
+    else if(!this.options.infinite && this.current_slide == 1){
       $(this.options.prev).fadeIn();
-    else if(!this.options.infinite && this.current_slide == this.slides - 2)
+      $(this.options.next).show();
+    }
+    else if(!this.options.infinite && this.current_slide == this.slides - 2){
       $(this.options.next).fadeIn();
+      $(this.options.prev).show();
+    }
+    else{
+      $(this.options.next).show();
+      $(this.options.prev).show();
+    }
   };
 
   vulsaiSlider.prototype.startTransitions = function(){
     var self = this;
-    $(this.options.thumb_list_id).find('li').click(function(e){
+    $(this.options.thumb_list_id).find('li').live('click',function(e){
       e.preventDefault();
       
       if(self.options.automatic == true && self.interval_id){
@@ -81,7 +92,7 @@
       this.el.children('li').css({'position':'absolute','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
 
 
-    $(this.options.prev).click(function(e){
+    $(this.options.prev).live('click',function(e){
       e.preventDefault();
       if(self.current_slide == 0)
         self.current_slide = self.slides - 1;
@@ -98,7 +109,7 @@
       self.transition();
     });
 
-     $(self.options.next).click(function(e){
+     $(self.options.next).live('click',function(e){
       e.preventDefault();
       if(self.current_slide == self.slides - 1)
         self.current_slide = 0;
