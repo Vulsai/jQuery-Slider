@@ -16,7 +16,7 @@
     this.options = $.extend({}, defaults, options);
     this.el = $(element);
     this.slides = this.el.children('li').length;
-    this.full_width = this.el.parent().width();
+    this.full_width = (this.el.parent().width() != 0) ? this.el.parent().width() : 800;
     this.current_slide = 0;
 
     this.init();
@@ -127,8 +127,6 @@
  };
 
   vulsaiSlider.prototype.slide = function(){
-    console.log(this.full_width);
-    console.log(this.current_slide);
     var self = this;
     this.el.animate({left: '-' + self.current_slide * self.full_width}, 800);
   };
