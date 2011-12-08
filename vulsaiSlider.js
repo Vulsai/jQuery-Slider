@@ -127,7 +127,10 @@
  };
 
   vulsaiSlider.prototype.slide = function(){
-    this.el.animate({left: '-' + this.current_slide * this.full_width}, 800);
+    console.log(this.full_width);
+    console.log(this.current_slide);
+    var self = this;
+    this.el.animate({left: '-' + self.current_slide * self.full_width}, 800);
   };
 
   vulsaiSlider.prototype.fade = function(){
