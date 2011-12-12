@@ -10,15 +10,15 @@
     , infinite: false
     , automatic: false
     , interval: 6000
+    , width: 800
   };
 
   function vulsaiSlider(element, options){
     this.options = $.extend({}, defaults, options);
     this.el = $(element);
     this.slides = this.el.children('li').length;
-    this.full_width = (this.el.parent().width() != 0) ? this.el.parent().width() : 800;
+    this.full_width = (this.el.parent().width() != 0) ? this.el.parent().width() : this.options.width;
     this.current_slide = 0;
-
     this.init();
   };
   
@@ -61,6 +61,11 @@
       $(this.options.next).show();
       $(this.options.prev).show();
     }
+
+    if(this.slides < 2){
+      $(this.options.next).hide();
+      $(this.options.prev).hide();
+    }  
   };
 
   vulsaiSlider.prototype.startTransitions = function(){
