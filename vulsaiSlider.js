@@ -41,26 +41,20 @@
   };
 
   vulsaiSlider.prototype.preventArrows = function(){
+ console.log(this.current_slide);
+ console.log(this.slides);
     var nav_opacity = this.options.nav_opacity;
     if(!this.options.infinite && this.current_slide == 0){
       $(this.options.prev).animate({opacity: nav_opacity}, 800);
-      $(this.options.next).show();
     }
-    else if(!this.options.infinite && this.current_slide == this.slides - 1){
-      $(this.options.next).animate({opacity: nav_opacity}, 800);
-      $(this.options.prev).show();
-    }
-    else if(!this.options.infinite && this.current_slide == 1){
+    if(!this.options.infinite && this.current_slide == 1){
       $(this.options.prev).animate({opacity: 1}, 800);
-      $(this.options.next).show();
     }
-    else if(!this.options.infinite && this.current_slide == this.slides - 2){
+    if(!this.options.infinite && this.current_slide == this.slides - 1){
+      $(this.options.next).animate({opacity: nav_opacity}, 800);
+    }
+    if(!this.options.infinite && this.current_slide == this.slides - 2){
       $(this.options.next).animate({opacity: 1}, 800);
-      $(this.options.prev).show();
-    }
-    else{
-      $(this.options.next).show();
-      $(this.options.prev).show();
     }
 
     if(this.slides < 2){
