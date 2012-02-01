@@ -13,6 +13,10 @@
     , width: 800
   };
 
+	/*
+	 * Constructor
+	 */
+
   function vulsaiSlider(element, options){
     this.options = $.extend({}, defaults, options);
     this.el = $(element);
@@ -22,6 +26,10 @@
     this.init();
   };
   
+	/*
+	 * Initialize the plugin with setting optimization
+	 */
+
   vulsaiSlider.prototype.init = function(){
     this.activeThumb();
     this.preventArrows();
@@ -31,18 +39,28 @@
       self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
  };
 
+	/*
+	 * Move to next element. Used for automatic sliders
+	 */
+
   vulsaiSlider.prototype.interval_func = function(){
     $(this.options.next).click();
   };
+
+	/*
+	 * Set the current thumb
+	 */
 
   vulsaiSlider.prototype.activeThumb = function() {
     $(this.options.thumb_list_id).find('li').eq(this.current_slide).addClass('currentNumber').siblings().removeClass('currentNumber');  
     var self = this;
   };
 
+	/*
+	 * Enable/Disable arrows on infinite: false
+	 */
+
   vulsaiSlider.prototype.preventArrows = function(){
- console.log(this.current_slide);
- console.log(this.slides);
     var nav_opacity = this.options.nav_opacity;
     if(!this.options.infinite && this.current_slide == 0){
       $(this.options.prev).animate({opacity: nav_opacity}, 800);
@@ -63,6 +81,10 @@
     }  
   };
 
+	/*
+	 * Initialize slider transitions
+	 */
+
   vulsaiSlider.prototype.startTransitions = function(){
     var self = this;
     $(this.options.thumb_list_id).find('li').click(function(e){
@@ -81,6 +103,10 @@
 
     this.transitions();
   };
+
+	/*
+	 * Set the transition type and initialize it
+	 */
 
   vulsaiSlider.prototype.transitions = function(){
     var self = this;
@@ -134,10 +160,18 @@
    });
  };
 
+	/*
+	 * Slide transition
+	 */
+
   vulsaiSlider.prototype.slide = function(){
     var self = this;
     this.el.animate({left: '-' + self.current_slide * self.full_width}, 800);
   };
+
+	/*
+	 * Fade transition
+	 */
 
   vulsaiSlider.prototype.fade = function(){
     var self = this;
@@ -148,6 +182,10 @@
       }
     );	 
   };
+
+	/*
+	 * Add the plugin to jQuery.fn
+	 */
 
   $.fn.vulsaiSlider = function ( options ) {
     return this.each(function () {
