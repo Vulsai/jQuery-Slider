@@ -36,7 +36,7 @@
     this.startTransitions();
     var self = this;
     if(self.options.automatic == true)
-      self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+      self.interval_id = setInterval(function(){ self.interval_func() },self.options.interval);
  };
 
 	/*
@@ -44,7 +44,18 @@
 	 */
 
   vulsaiSlider.prototype.interval_func = function(){
-    $(this.options.next).click();
+			var self = this;
+      if(self.current_slide == self.slides - 1 && self.options.infinite == false)
+        return false
+ 
+      if(self.current_slide == self.slides - 1)
+        self.current_slide = 0;
+      else
+        self.current_slide = self.current_slide + 1;
+
+      self.activeThumb();
+      self.preventArrows();
+      self.transition();   
   };
 
 	/*
@@ -52,8 +63,8 @@
 	 */
 
   vulsaiSlider.prototype.activeThumb = function() {
-    $(this.options.thumb_list_id).find('li').eq(this.current_slide).addClass('currentNumber').siblings().removeClass('currentNumber');  
-    var self = this;
+  	  var self = this;
+	    $(self.options.thumb_list_id).find('li').eq(self.current_slide).addClass('currentNumber').siblings().removeClass('currentNumber');  
   };
 
 	/*
