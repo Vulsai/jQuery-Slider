@@ -114,7 +114,7 @@
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
     this.el.css('position','relative');
     if(this.options.transition == 'fade')
-      this.el.children('li').css({'position':'relative','z-index':3,'top':0,'left':0}).eq(0).css('z-index',4);
+      this.el.children('li').css({'position':'relative','display': 'none','top':0,'left':0}).eq(0).css('display','block');
 
     $(this.options.prev).click(function(e){
       if(self.current_slide == 0 && self.options.infinite == false)
@@ -177,7 +177,7 @@
     var self = this;
     this.el.animate({'opacity': self.options.fade_opacity}, 400, 
       function(){
-        $(this).children('li').eq(self.current_slide).css('z-index',4).siblings().css('z-index',3);
+        $(this).children('li').eq(self.current_slide).css('display','block').siblings().css('display','none');
         self.el.animate({'opacity':1},400);
       }
     );	 
