@@ -76,13 +76,13 @@
     if(!this.options.infinite && this.current_slide == 0){
       $(this.options.prev).animate({opacity: nav_opacity}, 800);
     }
-    if(!this.options.infinite && this.current_slide == 1){
+    if(!this.options.infinite && this.current_slide != 0){
       $(this.options.prev).animate({opacity: 1}, 800);
     }
     if(!this.options.infinite && this.current_slide == this.slides - 1){
       $(this.options.next).animate({opacity: nav_opacity}, 800);
     }
-    if(!this.options.infinite && this.current_slide == this.slides - 2){
+    if(!this.options.infinite && this.current_slide != this.slides - 1){
       $(this.options.next).animate({opacity: 1}, 800);
     }
 
