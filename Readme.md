@@ -47,7 +47,7 @@ After adding your jQuery script tag insert
 
 ## Required CSS
 
-```
+```css
 /*- Define a width for the container and the slides -*/
 #slider, #slider li {width:500px; overflow:hidden;}
 #slider li img {display:block; width:100%; height:auto;}
@@ -62,8 +62,6 @@ After adding your jQuery script tag insert
 #slider.slide ul, #slider.slide li {float:left;}
 #slider.slide ul {position:relative; width:32767px;}
 ```
-
-If you are using the `fade` option, elements
 
 ## Features
 
