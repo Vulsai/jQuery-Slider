@@ -1,1 +1,97 @@
-My GitHub Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Slider</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+<script src="vulsaiSlider.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#slider ul').vulsaiSlider({automatic: true, infinite: false, transition: 'slide', thumb_list_id:'#thumbs', nav_opacity: 0.3, prev: '#prev', next: '#next'});
+	});
+
+</script>
+<style type="text/css">
+	
+	/*------------------------------*/
+	/*	EXAMPLE STYLES				*/
+	/*------------------------------*/
+	
+	* {padding:0; margin:0;}
+	body {font:76% Helvetica, Arial, sans-serif;}
+	#header {text-align:center; padding:50px 0 25px;}
+	#header h1 {font-size:3.5em; padding-bottom:10px; letter-spacing:-0.03em;}
+	#header p {font-size:1.25em; line-height:140%; color:#666;}
+	#header a {color:#C00; text-decoration:none;}
+	#header a:hover {color:#900; text-decoration:underline;}
+	#controls {padding:15px; background:#EEE; width:470px; margin:0 auto; overflow:hidden;}
+	#controls a {color:#000; font-weight:bold;}
+	#controls #prev {float:left;}
+	#controls #next {float:right;}
+	#slider {margin:20px auto; position:relative;}
+	#thumbs {background:#FFFFCC; text-align:center; padding:15px; width:470px; margin:0 auto; overflow:hidden;}
+	#thumbs li {display:inline; padding:0 10px;}
+	#thumbs .currentNumber a {color:#FFF !important; background:#000;}
+	#thumbs a {color:#C00; padding:5px; text-decoration:none; font-weight:bold;}
+	#thumbs a:hover {color:#000; text-decoration:underline;}
+	#footer {color:#777; text-align:center; margin:40px auto;}
+	#footer a {color:#777}
+	
+	/*------------------------------*/
+	/*	REQUIRED CSS				*/
+	/*------------------------------*/
+	
+	/*- Define a width for the container and the slides -*/
+	#slider, #slider li {width:500px; overflow:hidden;}
+	#slider li img {display:block; width:100%; height:auto;}
+	
+	/*- If the animation is fade you need to define a height to the container and the slide -*/
+	#slider.fade,
+	#slider.fade li {height:315px;}
+	#slider.fade li {position:absolute; left:0; top:0; z-index:1;}
+	#slider.fade li img {min-height:315px;}
+	
+	/*- If the animation is slide, you must float the slides -*/
+	#slider.slide ul, #slider.slide li {float:left;}
+	#slider.slide ul {position:relative; width:32767px;}
+	
+	
+</style>
+</head>
+
+<body>
+	
+	<div id="header">
+		<h1>Vulsai Slider</h1>
+		<p>Fed up of complex and hard to use sliders? So are we. Implement this in a flash and control everything via CSS.</p>
+		<p>Project page: <a href="https://github.com/Vulsai/jQuery-Slider">Vulsai Jquery Slider on <strong>Github</strong></a></p>
+	</div>
+	<div id="controls">
+		<a id="prev" href="#">&laquo; Previous</a>
+		<a id="next" href="#">Next &raquo;</a>
+	</div>
+	<div id="slider">
+		<ul>
+			<li><img src="images/1.jpg" alt="" /></li>
+			<li><img src="images/2.jpg" alt="" /></li>
+			<li><img src="images/3.jpg" alt="" /></li>
+			<li><img src="images/4.jpg" alt="" /></li>
+			<li><img src="images/5.jpg" alt="" /></li>
+		</ul>
+	</div>
+	<div id="thumbs">
+		<ul>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+		</ul>
+	</div>
+	<div id="footer">
+		<p>Artwork by <a href="http://dlanham.com">David Lanham</a></p>
+	</div>
+
+</body>
+</html>
