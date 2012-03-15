@@ -45,6 +45,26 @@ After adding your jQuery script tag insert
 </script>
 ```
 
+## Required CSS
+
+```
+/*- Define a width for the container and the slides -*/
+#slider, #slider li {width:500px; overflow:hidden;}
+#slider li img {display:block; width:100%; height:auto;}
+
+/*- If the animation is fade you need to define a height to the container and the slide -*/
+#slider.fade,
+#slider.fade li {height:315px;}
+#slider.fade li {position:absolute; left:0; top:0; z-index:1;}
+#slider.fade li img {min-height:315px;}
+
+/*- If the animation is slide, you must float the slides -*/
+#slider.slide ul, #slider.slide li {float:left;}
+#slider.slide ul {position:relative; width:32767px;}
+```
+
+If you are using the `fade` option, elements
+
 ## Features
 
 * Support for slide and fade transitions
