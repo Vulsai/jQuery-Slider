@@ -17,11 +17,11 @@ Add your markup
   </div>
   <div id="slider">
     <ul>
-      <li><img src="http://the-simpsons.otavo.tv/wp-content/uploads/2008/07/thesimpsonswallpaper640.jpg" alt="" /></li>
-      <li><img src="http://the-simpsons.otavo.tv/wp-content/uploads/2008/07/thesimpsonswallpaper640.jpg" alt="" /></li>
-      <li><img src="http://the-simpsons.otavo.tv/wp-content/uploads/2008/07/thesimpsonswallpaper640.jpg" alt="" /></li>
-      <li><img src="http://the-simpsons.otavo.tv/wp-content/uploads/2008/07/thesimpsonswallpaper640.jpg" alt="" /></li>
-      <li><img src="http://the-simpsons.otavo.tv/wp-content/uploads/2008/07/thesimpsonswallpaper640.jpg" alt="" /></li>
+      <li><img src="images/1.jpg" alt="" /></li>
+      <li><img src="images/2.jpg" alt="" /></li>
+      <li><img src="images/3.jpg" alt="" /></li>
+      <li><img src="images/4.jpg" alt="" /></li>
+      <li><img src="images/5.jpg" alt="" /></li>
     </ul>
   </div>
   <div id="thumbs">
