@@ -20,12 +20,17 @@
 	
 	* {padding:0; margin:0;}
 	body {font:76% Helvetica, Arial, sans-serif;}
-	#controls {padding:15px; background:#EEE; width:470px; margin:40px auto 0; overflow:hidden;}
+	#header {text-align:center; padding:50px 0 25px;}
+	#header h1 {font-size:3.5em; padding-bottom:10px; letter-spacing:-0.03em;}
+	#header p {font-size:1.25em; line-height:140%; color:#666;}
+	#header a {color:#C00; text-decoration:none;}
+	#header a:hover {color:#900; text-decoration:underline;}
+	#controls {padding:15px; background:#EEE; width:470px; margin:0 auto; overflow:hidden;}
 	#controls a {color:#000; font-weight:bold;}
 	#controls #prev {float:left;}
 	#controls #next {float:right;}
-	#slider {margin:40px auto; position:relative;}
-	#thumbs {background:#FFFFCC; text-align:center; padding:15px; width:470px; margin:40px auto 0; overflow:hidden;}
+	#slider {margin:20px auto; position:relative;}
+	#thumbs {background:#FFFFCC; text-align:center; padding:15px; width:470px; margin:0 auto; overflow:hidden;}
 	#thumbs li {display:inline; padding:0 10px;}
 	#thumbs .currentNumber a {color:#FFF !important; background:#000;}
 	#thumbs a {color:#C00; padding:5px; text-decoration:none; font-weight:bold;}
@@ -57,6 +62,11 @@
 
 <body>
 	
+	<div id="header">
+		<h1>Vulsai Slider</h1>
+		<p>Fed up of complex and hard to use sliders? So are we. Implement this in a flash and control everything via CSS.</p>
+		<p>Project page: <a href="https://github.com/Vulsai/jQuery-Slider">Vulsai Jquery Slider on <strong>Github</strong></a></p>
+	</div>
 	<div id="controls">
 		<a id="prev" href="#">&laquo; Previous</a>
 		<a id="next" href="#">Next &raquo;</a>
