@@ -124,10 +124,10 @@
 
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
     if(this.options.transition == 'fade'){
-			this.el.addClass('fade');
+			this.el.parent().addClass('fade');
       this.el.children('li').css({'display': 'none'}).eq(0).css('display','block');
 		} else if(this.options.transition == 'slide'){
-			this.el.addClass('slide');
+			this.el.parent().addClass('slide');
 		}
 
 
