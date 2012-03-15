@@ -123,9 +123,13 @@
     var self = this;
 
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
-    this.el.css('position','relative');
-    if(this.options.transition == 'fade')
-      this.el.children('li').css({'position':'relative','display': 'none','top':0,'left':0}).eq(0).css('display','block');
+    if(this.options.transition == 'fade'){
+			this.el.addClass('fade');
+      this.el.children('li').css({'display': 'none'}).eq(0).css('display','block');
+		} else if(this.options.transition == 'slide'){
+			this.el.addClass('slide');
+		}
+
 
     $(this.options.prev).click(function(e){
       if(self.current_slide == 0 && self.options.infinite == false)
