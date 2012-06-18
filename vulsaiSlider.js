@@ -36,7 +36,7 @@
     this.startTransitions();
     var self = this;
     if(self.options.automatic == true)
-      self.interval_id = setInterval(function(){ self.interval_func() },self.options.interval);
+      self.interval_id = setTimeout(function(){ self.interval_func(); setTimeout(arguments.callee ,self.options.interval); },self.options.interval);
  };
 
 	/*
@@ -103,7 +103,7 @@
       
       if(self.options.automatic == true && self.interval_id){
         clearInterval(self.interval_id);
-        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+        self.interval_id = setTimeout(function(){ $(self.options.next).click(); setTimeout(arguments.callee, self.options.interval); },self.options.interval);
       }
 
       self.current_slide = $(this).index();
@@ -143,7 +143,10 @@
 
       if(self.options.automatic == true && self.interval_id){
         clearInterval(self.interval_id);
-        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+        self.interval_id = setTimeout(function(){
+          $(self.options.next).click(); 
+          setTimeout(arguments.callee, self.options.interval);
+        },self.options.interval);
       }
 
       self.activeThumb();
@@ -165,7 +168,10 @@
 
       if(self.options.automatic == true && self.interval_id){
         clearInterval(self.interval_id);
-        self.interval_id = setInterval(function(){ $(self.options.next).click(); },self.options.interval);
+        self.interval_id = setTimeout(function(){ 
+          $(self.options.next).click(); 
+          setTimeout(arguments.callee, self.options.interval);
+        },self.options.interval);
       }
 
       self.activeThumb();
