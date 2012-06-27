@@ -88,7 +88,7 @@ After adding your jQuery script tag insert
 
 * **nav_opacity** defaults to `.3`
  * The disabled control opacity, values from 0 to 1 are useful
- 
+
 * **fade_opacity** defaults to `.2`
  * The transition fade opacity, values from 0 to 1 are useful
 
@@ -97,3 +97,6 @@ After adding your jQuery script tag insert
 
 * **automatic** defaults to `false`
  * Enable or disable the auto start of the slider transitions
+
+* **width** defaults to `false`
+ * Set the width for setting how many pixels the slider should move. Default gets the slider element width.
