@@ -124,7 +124,7 @@
     this.transition = this.options.transition == 'fade' ? this.fade : this.slide;
     if(this.options.transition == 'fade'){
 			this.el.parent().addClass('fade');
-      this.el.children('li').css({'display': 'none'}).eq(0).css('display','block');
+      this.el.children('li').css({'display': 'none'}).eq(0).css('display','block').addClass('active');
 		} else if(this.options.transition == 'slide'){
 			this.el.parent().addClass('slide');
 		}
@@ -187,6 +187,7 @@
   vulsaiSlider.prototype.slide = function(){
     var self = this;
     this.el.animate({left: '-' + self.current_slide * self.full_width}, 800);
+    this.el.find('li').eq(this.current_slide).addClass('active').siblings().removeClass('active');
   };
 
 	/*
@@ -197,8 +198,8 @@
     var self = this;
     this.el.animate({'opacity': self.options.fade_opacity}, 400,
       function(){
-        $(this).children('li').eq(self.current_slide).css('display','block').siblings().css('display','none');
         self.el.animate({'opacity':1},400);
+        $(this).children('li').eq(self.current_slide).css('display','block').addClass('active').siblings().css('display','none').removeClass('active');
       }
     );
   };
