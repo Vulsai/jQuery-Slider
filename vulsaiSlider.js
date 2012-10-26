@@ -5,7 +5,6 @@
     , thumb_list_id: '#thumbs'
     , prev: '#prev'
     , next: '#next'
-    , nav_opacity: .3
     , fade_opacity: .2
     , infinite: false
     , automatic: false
@@ -74,16 +73,16 @@
   vulsaiSlider.prototype.preventArrows = function(){
     var nav_opacity = this.options.nav_opacity;
     if(!this.options.infinite && this.current_slide == 0){
-      $(this.options.prev).animate({opacity: nav_opacity}, 800);
+      $(this.options.prev).attr('disabled', 'disabled');
     }
     if(!this.options.infinite && this.current_slide != 0){
-      $(this.options.prev).animate({opacity: 1}, 800);
+      $(this.options.prev).removeAttr('disabled');
     }
     if(!this.options.infinite && this.current_slide == this.slides - 1){
-      $(this.options.next).animate({opacity: nav_opacity}, 800);
+      $(this.options.next).attr('disabled', 'disabled');
     }
     if(!this.options.infinite && this.current_slide != this.slides - 1){
-      $(this.options.next).animate({opacity: 1}, 800);
+      $(this.options.next).removeAttr('disabled');
     }
 
     if(this.slides < 2){
