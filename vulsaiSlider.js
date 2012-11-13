@@ -195,7 +195,7 @@
       this.options.onBeforeSlide.call(this.el);
     }
     this.el.find('li').eq(this.current_slide).addClass('active').siblings().removeClass('active');
-    this.el.animate({left: '-' + self.current_slide * self.full_width}, 800, function () {
+    this.el.clearQueue().animate({left: '-' + self.current_slide * self.full_width}, 800, function () {
       if (typeof self.options.onAfterSlide === 'function') {
         self.options.onAfterSlide.call(self.el);
       }
@@ -211,10 +211,10 @@
     if (typeof this.options.onBeforeSlide === 'function') {
       this.options.onBeforeSlide.call(this.el);
     }
-    this.el.animate({'opacity': self.options.fade_opacity}, 400,
+    this.el.clearQueue().animate({'opacity': self.options.fade_opacity}, 400,
       function(){
         $(this).children('li').eq(self.current_slide).css('display','block').addClass('active').siblings().css('display','none').removeClass('active');
-        self.el.animate({'opacity':1},400,function () {
+        self.el.clearQueue().animate({'opacity':1},400,function () {
           if (typeof self.options.onAfterSlide === 'function') {
             self.options.onAfterSlide.call(self.el);
           }
