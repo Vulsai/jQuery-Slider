@@ -100,3 +100,15 @@ After adding your jQuery script tag insert
 
 * **width** defaults to `false`
  * Set the width for setting how many pixels the slider should move. Default gets the slider element width.
+
+* **steps** defaults to `null`
+ * The number of steps you want to use, useful to move just a segment of the slider.
+
+ * **steps** defaults to `null`
+ * The number of steps you want to use, useful to move just a segment of the slider.
+
+ * **onBeforeSlide** defaults to `null`
+ * Callback to trigger before a slide
+
+* **onBeforeSlide** defaults to `null`
+* Callback to trigger after a slide

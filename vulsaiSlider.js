@@ -10,6 +10,7 @@
     , automatic: false
     , interval: 6000
     , width: false
+    , steps: null
     , onBeforeSlide: null
     , onAfterSlide: null
   };
@@ -21,7 +22,12 @@
   function vulsaiSlider(element, options){
     this.options = $.extend({}, defaults, options);
     this.el = $(element);
-    this.slides = this.el.children('li').length;
+    if (this.options.steps){
+        this.slides = this.options.steps;
+    }
+    else {
+        this.slides = this.el.children('li').length; 
+    }
     this.full_width = (this.options.width==false) ? this.el.parent().width() : this.options.width;
     this.current_slide = 0;
     this.init();
